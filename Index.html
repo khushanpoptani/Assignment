@@ -172,6 +172,23 @@
             color: #2575fc; /* Change to another friendly color on hover */
         }
 
+        /* New Close Button Class for Dance Modal */
+        .close-dance {
+            color: #2575fc; /* Different color for differentiation */
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-dance:hover,
+        .close-dance:focus {
+            color: #6a11cb; /* Change to another friendly color on hover */
+        }
+
         .modal-button {
             padding: 10px 20px;
             margin: 15px 10px 0 10px;
@@ -195,9 +212,40 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
+        .modal-button.dance {
+            background-color: #ff5722; /* Vibrant orange for dance */
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
         .modal-button:hover {
             opacity: 0.9;
             transform: translateY(-2px);
+        }
+
+        /* Small Button Styling */
+        .small-button {
+            padding: 5px 12px;          /* Reduced padding for smaller height */
+            font-size: 14px;            /* Slightly smaller font size */
+            border-radius: 12px;        /* Smaller border radius */
+            background-color: #28a745;  /* Soft green to differentiate */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 10px;           /* Space above the button */
+            transition: background-color 0.3s, transform 0.2s, opacity 0.3s;
+        }
+
+        /* Hover Effect for "Maff Kiya Jaa" Button */
+        .small-button:hover {
+            background-color: #218838; /* Darker green on hover */
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        /* Optional: Center the "Maff Kiya Jaa" Button within the Modal */
+        #danceModal .modal-content button.small-button {
+            display: block;
+            margin: 15px auto 0 auto; /* Center horizontally with margin */
         }
 
         /* Sorry Animation */
@@ -275,7 +323,7 @@
 
         /* Message Styling */
         .friend-message {
-            margin-top: 100px;
+            margin-top: 150px;
             font-size: 1.2em;
             color: #555;
             max-width: 600px;
@@ -306,6 +354,11 @@
 
             .friend-message {
                 font-size: 1em;
+            }
+
+            /* Adjust Dance Modal for smaller screens */
+            #danceModal .modal-content {
+                max-width: 90%; /* Ensure it doesn't exceed screen width */
             }
         }
     </style>
@@ -345,13 +398,22 @@
         </p>
     </div>
 
-    <!-- The Modal -->
+    <!-- The Apology Modal -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <div id="modalMessage"></div>
             <div id="sorryContainer" style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center;"></div>
             <div id="modalButtons" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <!-- The Dance Modal -->
+    <div id="danceModal" class="modal">
+        <div class="modal-content">
+            <span class="close-dance">&times;</span>
+            <img src="dance_cat.gif" alt="Dance Cat">
+            <button class="modal-button small-button" id="maffKiyaJaaButton">Maff Kiya Jaa</button>
         </div>
     </div>
 
@@ -365,6 +427,11 @@
         const maafButton = document.getElementById("maafButton");
         const nhiButton = document.getElementById("nhiButton");
         const boyImage = document.getElementById("boyImage");
+
+        // Get the dance modal and its close button
+        const danceModal = document.getElementById("danceModal");
+        const closeDance = document.getElementsByClassName("close-dance")[0];
+        const maffKiyaJaaButton = document.getElementById("maffKiyaJaaButton");
 
         // Image sources
         const sadBoy = "sad_boy.png"; // Default image
@@ -419,11 +486,15 @@
             if (event.target == modal) {
                 closeModal();
             }
+            // Also handle clicks outside the dance modal
+            if (event.target == danceModal) {
+                danceModal.style.display = "none";
+            }
         }
 
         // Handler for "Maaf Kiya Jaa" button
         maafButton.onclick = function() {
-            modalMessage.innerHTML = "<h2>Thank You for Understanding 🥰</h2>";
+            modalMessage.innerHTML = "<h2>Thank You for Understanding 🥰 Meow Meow Meow Meow</h2>";
             sorryContainer.innerHTML = '';
             modalButtons.innerHTML = `
                 <button class="modal-button accept" onclick="closeModal()">Close</button>
@@ -438,6 +509,7 @@
             modalButtons.innerHTML = `
                 <button class="modal-button accept" id="aurLikhButton">Aur Likh</button>
                 <button class="modal-button decline" id="maafKiyaButton">Maaf Kiya</button>
+                <button class="modal-button dance" id="nachButton">Nach ke dikha</button>
             `;
 
             document.getElementById("aurLikhButton").onclick = function() {
@@ -451,6 +523,11 @@
                 modalButtons.innerHTML = `
                     <button class="modal-button accept" onclick="closeModal()">Close</button>
                 `;
+            }
+
+            // Add event listener for the new "Nach ke dikha" button
+            document.getElementById("nachButton").onclick = function() {
+                openDanceModal();
             }
         }
 
@@ -483,8 +560,37 @@
 
         nhiButton.addEventListener('mouseout', () => {
             changeBoyImage(sadBoy); // Revert to default image without animation
+        });
+
+        // Function to open the dance modal
+        function openDanceModal() {
+            danceModal.style.display = "block";
         }
-        );
+
+        // When the user clicks on <span> (x) for dance modal, close it
+        closeDance.onclick = function() {
+            danceModal.style.display = "none";
+        }
+
+        // Handler for "Maff Kiya Jaa" button in Dance Modal
+        maffKiyaJaaButton.onclick = function() {
+            // Close the dance modal
+            danceModal.style.display = "none";
+
+            // Update the main modal to show a thank-you message
+            modalMessage.innerHTML = "<h2>Thank You for Accepting My Apology 🥰</h2>";
+            sorryContainer.innerHTML = '';
+            modalButtons.innerHTML = `
+                <button class="modal-button accept" onclick="closeModal()">Close</button>
+            `;
+            modal.style.display = "block";
+
+            // Play the audio
+            const audio = new Audio('7_corore.mp3');
+            audio.play().catch(error => {
+                console.error("Error playing audio:", error);
+            });
+        }
     </script>
 
 </body>
