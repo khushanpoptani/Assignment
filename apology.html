@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heartfelt Apology to Niomi</title>
+    <style>
+        /* Importing friendly and elegant fonts from Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            padding-top: 80px; /* Adjust as needed */
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); /* Soft teal to peach gradient */
+            color: #333;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            margin: 0; /* Remove default margin */
+        }
+
+        /* Heart Background Animation with Friendly Colors */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: rotate(-45deg);
+            animation: float 10s infinite ease-in-out;
+            border-radius: 2px;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 10px;
+            top: 0;
+        }
+
+        /* Generate multiple hearts */
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(-45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-800px) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Container for hearts */
+        .hearts-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        /* Main Content */
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 0 20px; /* Add horizontal padding for smaller screens */
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #555;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .button-container {
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 12px 25px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 25px;
+            transition: background-color 0.3s, transform 0.2s;
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #maafButton {
+            background-color: #6a11cb; /* Soft purple */
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        #nhiButton {
+            background-color: #2575fc; /* Soft blue */
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 10; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto; /* 5% from the top and centered */
+            padding: 30px 20px;
+            border: none;
+            width: 90%;
+            max-width: 600px; /* Could be more or less, depending on screen size */
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            animation: modalFadeIn 0.5s;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .close {
+            color: #6a11cb; /* Match the button color */
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #2575fc; /* Change to another friendly color on hover */
+        }
+
+        .modal-button {
+            padding: 10px 20px;
+            margin: 15px 10px 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 20px;
+            transition: background-color 0.3s, transform 0.2s;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .modal-button.accept {
+            background-color: #6a11cb; /* Soft purple */
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .modal-button.decline {
+            background-color: #2575fc; /* Soft blue */
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .modal-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Sorry Animation */
+        .sorry {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.3s forwards;
+            display: inline-block;
+            margin: 2px;
+            font-size: 16px;
+            color: #6a11cb; /* Match the theme */
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scrollbar Styling for Modal Content */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: #fff;
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #6a11cb;
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #2575fc;
+        }
+
+        /* Boy Image Styling */
+        .boy-image {
+            margin-top: 200px; /* Updated as per user's change */
+            width: 200px;
+            height: auto;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        /* Pop-up Animation */
+        @keyframes popUp {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .pop-up {
+            animation: popUp 0.5s forwards;
+        }
+
+        /* Optional: Add some animation when image changes */
+        .image-container {
+            height: 220px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Message Styling */
+        .friend-message {
+            margin-top: 150px;
+            font-size: 1.2em;
+            color: #555;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        /* Responsive Design Adjustments */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .button-container {
+                flex-direction: column;
+            }
+
+            button {
+                width: 80%;
+                margin: 10px auto;
+            }
+
+            .boy-image {
+                width: 150px;
+                margin-top: 40px;
+            }
+
+            .friend-message {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Heart Background Animation -->
+    <div class="hearts-container">
+        <!-- Generate multiple hearts with random positions and animation delays -->
+        <script>
+            for(let i=0; i<30; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.bottom = Math.random() * 100 + 'vh';
+                heart.style.width = (10 + Math.random() * 20) + 'px';
+                heart.style.height = heart.style.width;
+                heart.style.animationDuration = (5 + Math.random() * 10) + 's';
+                heart.style.opacity = 0.3 + Math.random() * 0.3;
+                document.querySelector('.hearts-container').appendChild(heart);
+            }
+        </script>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1>Apology to My Best Friend Niomi Samani Jii 💕</h1>
+        <div class="button-container">
+            <button id="maafButton">Maaf Kiya Jaa</button>
+            <button id="nhiButton">Nhi kiya</button>
+        </div>
+        <div class="image-container">
+            <img src="sad_boy.png" alt="Boy" id="boyImage" class="boy-image">
+        </div>
+        <p class="friend-message">
+            Hey, you are my best friend, everything. I cannot be normal if you get angry or mad at me. I am sorry for everything I said and you felt bad. Maaf kar do naa yaar ab.
+        </p>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalMessage"></div>
+            <div id="sorryContainer" style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center;"></div>
+            <div id="modalButtons" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Get elements
+        const modal = document.getElementById("myModal");
+        const modalMessage = document.getElementById("modalMessage");
+        const sorryContainer = document.getElementById("sorryContainer");
+        const modalButtons = document.getElementById("modalButtons");
+        const span = document.getElementsByClassName("close")[0];
+        const maafButton = document.getElementById("maafButton");
+        const nhiButton = document.getElementById("nhiButton");
+        const boyImage = document.getElementById("boyImage");
+
+        // Image sources
+        const sadBoy = "sad_boy.png"; // Default image
+        const holdingFlowers = "boy_holding_flower.png"; // Boy holding flowers
+
+        // Initialize sorry count
+        let sorryCount = 0;
+
+        // Function to open modal with specific content
+        function openModal(message, showSorry = false, initialSorry = false) {
+            modalMessage.innerHTML = message;
+            modalButtons.innerHTML = '';
+
+            if (showSorry) {
+                if (initialSorry) {
+                    sorryContainer.innerHTML = ''; // Clear previous sorries if initial
+                }
+                addSorries(100);
+            }
+
+            modal.style.display = "block";
+        }
+
+        // Function to close modal
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Function to add sorries with animation
+        function addSorries(number) {
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i >= number) {
+                    clearInterval(interval);
+                    return;
+                }
+                const sorrySpan = document.createElement("span");
+                sorrySpan.className = 'sorry';
+                sorrySpan.textContent = "Sorry ";
+                sorryContainer.appendChild(sorrySpan);
+                i++;
+            }, 30); // Adjust the delay for faster/slower animation
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            closeModal();
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Handler for "Maaf Kiya Jaa" button
+        maafButton.onclick = function() {
+            modalMessage.innerHTML = "<h2>Thank You for Understanding 🥰</h2>";
+            sorryContainer.innerHTML = '';
+            modalButtons.innerHTML = `
+                <button class="modal-button accept" onclick="closeModal()">Close</button>
+            `;
+            modal.style.display = "block";
+        }
+
+        // Handler for "Nhi kiya" button
+        nhiButton.onclick = function() {
+            sorryCount = 100; // Initialize with 100 sorries
+            openModal("<h2>I truly value our friendship and I'm sorry for everything 💔:</h2>", true, true);
+            modalButtons.innerHTML = `
+                <button class="modal-button accept" id="aurLikhButton">Aur Likh</button>
+                <button class="modal-button decline" id="maafKiyaButton">Maaf Kiya</button>
+            `;
+
+            document.getElementById("aurLikhButton").onclick = function() {
+                sorryCount += 100;
+                addSorries(100);
+            }
+
+            document.getElementById("maafKiyaButton").onclick = function() {
+                modalMessage.innerHTML = "<h2>Thank You for Understanding 🥰</h2>";
+                sorryContainer.innerHTML = '';
+                modalButtons.innerHTML = `
+                    <button class="modal-button accept" onclick="closeModal()">Close</button>
+                `;
+            }
+        }
+
+        // Function to change the boy image with optional animation
+        function changeBoyImage(newSrc, animate = false) {
+            if (animate) {
+                boyImage.classList.add('pop-up');
+                boyImage.src = newSrc;
+                // Remove the animation class after animation completes
+                boyImage.addEventListener('animationend', () => {
+                    boyImage.classList.remove('pop-up');
+                }, { once: true });
+            } else {
+                boyImage.src = newSrc;
+            }
+        }
+
+        // Hover effects for buttons to change boy image
+        maafButton.addEventListener('mouseover', () => {
+            changeBoyImage(holdingFlowers, true); // Change to boy_holding_flower.png with animation
+        });
+
+        maafButton.addEventListener('mouseout', () => {
+            changeBoyImage(sadBoy); // Revert to default image without animation
+        });
+
+        nhiButton.addEventListener('mouseover', () => {
+            changeBoyImage(sadBoy); // Change to sad_boy.png without animation
+        });
+
+        nhiButton.addEventListener('mouseout', () => {
+            changeBoyImage(sadBoy); // Revert to default image without animation
+        }
+        );
+    </script>
+
+</body>
+</html>
