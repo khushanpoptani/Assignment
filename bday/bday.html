@@ -38,7 +38,9 @@
         /* Cake Container Styling */
         .cake-container {
             position: relative;
-            display: inline-block;
+            display: block; /* Changed from inline-block to block */
+            margin: 0 auto; /* Center the container */
+            max-width: 100%; /* Ensure it doesn't exceed the viewport */
         }
 
         .cake-container img {
@@ -52,6 +54,8 @@
             left: 0;
             width: 300px;
             opacity: 0;
+            pointer-events: none; /* Prevents the hidden image from blocking clicks */
+            transition: opacity 1s ease;
         }
 
         .buttons {
@@ -59,19 +63,27 @@
         }
 
         button {
-            padding: 10px 20px;
-            margin: 0 15px;
+            padding: 12px 24px; /* Increased padding */
+            margin: 20px auto; /* Center the button */
             font-size: 16px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px; /* Increased border radius */
             cursor: pointer;
             background-color: #d63384;
             color: white;
             transition: background-color 0.3s ease;
+            display: block; /* Ensure it's block-level */
+            position: relative; /* Position relative for z-index */
+            z-index: 1; /* Ensure it stays on top */
         }
 
         button:hover {
             background-color: #a12a6c;
+        }
+
+        button:disabled {
+            background-color: #a12a6c;
+            cursor: not-allowed;
         }
 
         /* Personalized Message Styling */
@@ -100,9 +112,12 @@
             }
 
             button {
-                padding: 8px 16px;
-                margin: 0 10px;
-                font-size: 14px;
+                padding: 10px 20px; /* Adjusted padding */
+                margin: 20px auto; /* Center the button with margin */
+                font-size: 16px; /* Increased font size */
+                display: block; /* Ensure it's block-level */
+                position: relative; /* Position relative for z-index */
+                z-index: 1; /* Ensure it stays on top */
             }
 
             #pre-cut-message {
@@ -174,6 +189,7 @@
             cutButton.addEventListener('click', () => {
                 cake.style.opacity = '0';
                 cakeCut.style.opacity = '1';
+                cakeCut.style.pointerEvents = 'auto'; // Allow interactions if needed
                 cutButton.disabled = true;
                 cutButton.style.cursor = 'not-allowed';
 
