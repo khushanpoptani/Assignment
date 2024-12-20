@@ -5,102 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Niomi!</title>
-    <!-- Google Fonts for Elegant Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* Embedded CSS */
 
-        /* Reset some default styles */
-        * {
-            box-sizing: border-box;
+        body {
+            background-color: #fdf6e3;
+            font-family: 'Arial, sans-serif';
+            text-align: center;
             margin: 0;
             padding: 0;
         }
 
-        body {
-            background: linear-gradient(135deg, #f8cdda 0%, #1d2b64 100%);
-            font-family: 'Roboto', sans-serif;
-            text-align: center;
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Decorative Hearts Animation */
-        .heart {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: rgba(255, 255, 255, 0.6);
-            transform: rotate(45deg);
-            animation: float 5s infinite;
-            border-radius: 50% 50% 0 0;
-        }
-
-        .heart::before,
-        .heart::after {
-            content: "";
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-        }
-
-        .heart::before {
-            top: -10px;
-            left: 0;
-        }
-
-        .heart::after {
-            left: 10px;
-            top: 0;
-        }
-
-        /* Positioning multiple hearts */
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(45deg);
-                opacity: 0.8;
-            }
-            50% {
-                opacity: 0.4;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(45deg);
-                opacity: 0;
-            }
-        }
-
-        /* Container for content */
         .container {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 40px 20px;
-            border-radius: 15px;
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            width: 90%;
+            padding: 50px;
         }
 
         h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3em;
-            color: #ffb6c1;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: #d63384;
+            margin-bottom: 30px;
         }
 
         /* Pre-Cut Message Styling */
         #pre-cut-message {
-            font-size: 1.2em;
-            color: #fff;
+            font-size: 20px;
+            color: #333;
             line-height: 1.6;
-            margin-bottom: 40px;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
             animation: fadeIn 2s ease-in-out;
         }
 
@@ -108,15 +39,11 @@
         .cake-container {
             position: relative;
             display: inline-block;
-            margin-bottom: 30px;
         }
 
         .cake-container img {
             width: 300px;
-            max-width: 100%;
             transition: opacity 1s ease;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         #cake-cut {
@@ -124,47 +51,38 @@
             top: 0;
             left: 0;
             width: 300px;
-            max-width: 100%;
             opacity: 0;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .buttons {
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         button {
-            padding: 12px 25px;
-            margin: 0 10px;
-            font-size: 1em;
+            padding: 10px 20px;
+            margin: 0 15px;
+            font-size: 16px;
             border: none;
-            border-radius: 25px;
+            border-radius: 5px;
             cursor: pointer;
-            background-color: #ff69b4;
-            color: #fff;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            font-family: 'Roboto', sans-serif;
+            background-color: #d63384;
+            color: white;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: #ff1493;
-            transform: translateY(-3px);
-        }
-
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            transform: none;
+            background-color: #a12a6c;
         }
 
         /* Personalized Message Styling */
         #post-cut-message {
-            margin-top: 30px;
-            font-size: 1.2em;
-            color: #fff;
+            margin-top: 40px;
+            font-size: 18px;
+            color: #333;
             line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
             display: none; /* Hidden by default */
             animation: fadeIn 2s ease-in-out;
         }
@@ -177,47 +95,36 @@
 
         /* Responsive Design */
         @media (max-width: 600px) {
-            h1 {
-                font-size: 2.5em;
-            }
-
-            #pre-cut-message, #post-cut-message {
-                font-size: 1em;
+            .cake-container img {
+                width: 200px;
             }
 
             button {
-                padding: 10px 20px;
-                margin: 0 5px;
-                font-size: 0.9em;
+                padding: 8px 16px;
+                margin: 0 10px;
+                font-size: 14px;
             }
 
-            .cake-container img {
-                width: 250px;
+            #pre-cut-message {
+                font-size: 16px;
             }
 
-            #cake-cut {
-                width: 250px;
+            #post-cut-message {
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Decorative Hearts -->
-    <div class="heart" style="left: 10%; animation-duration: 6s;"></div>
-    <div class="heart" style="left: 30%; animation-duration: 5s; animation-delay: 1s;"></div>
-    <div class="heart" style="left: 50%; animation-duration: 7s; animation-delay: 2s;"></div>
-    <div class="heart" style="left: 70%; animation-duration: 5s; animation-delay: 3s;"></div>
-    <div class="heart" style="left: 90%; animation-duration: 6s; animation-delay: 4s;"></div>
-
     <div class="container">
         <h1>Happy Birthday, Niomi Samani!</h1>
 
         <!-- Pre-Cut Personalized Message -->
         <div id="pre-cut-message">
-            <p>Helloooo 👋 Manager Saiba 🙇, Mohtarma Jii 😁<br>
-            Janam din 🎂🧁🍫 ki hardik shubhkamnaye 🌟 apko (apni bhasa me bole to Happy Birthday 🫂❤️ Meow Meow 🐱🐱).<br>
-            Hope your next upcoming year will be fine 🤡 and better kaise nhi hoga apun hai naa 😎 irritate kar ke aacha bnane hi dunga. 🐱<br>
-            Now close your eyes and pray 🙏 to god. Thank you Bhagwan for sending you into this world, varna me irritate kisse karta 🥺. Thank you God! Let's cut the cake 🎂 now.</p>
+            <p>Helloooo 👋 Manager saiba🙇, Mohtarma Jii 😁
+            Janam din🎂🧁🍫 ki hardik shubhkamnaye🌟 apko (apni bhasa me bole to Happy Birthday 🫂❤️ Meow Meow🐱🐱).
+            Hope you next upcoming year will be fine🤡 and better kaise nhi hoga apun hai naa 😎 irritate kar karke aacha bnane hi dunga.🐱
+            Now close your eyes and pray🙏 to god thank you bhagwan isse bhej diya varna me irritate kisse karta 🥺. Thank you god Let's cut the cake🎂 now. </p>
         </div>
 
         <div class="cake-container">
@@ -231,8 +138,8 @@
         </div>
         <!-- Post-Cut Personalized Message -->
         <div id="post-cut-message">
-            <p>Hope you have a purr-fect day filled with joy and love! 🎉❤️🐾</p>
-            <p>May all your dreams come true, and may this year bring you endless happiness. 🥂✨</p>
+            <p>Hope you have a purr-fect day filled with joy and love!</p>
+            <!-- You can add more personalized messages here if desired -->
         </div>
     </div>
 
@@ -273,7 +180,7 @@
                 // Display the post-cut personalized message after a short delay
                 setTimeout(() => {
                     postCutMessage.style.display = 'block';
-                }, 2000); // 2 seconds delay to sync with GIF animation
+                }, 1500); // 1.5 seconds delay to sync with GIF animation
             });
         });
     </script>
